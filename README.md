@@ -1,4 +1,4 @@
-# **STOCK SORT**
+# **QUICK MERGE**
 
 A command-line tool to rank stocks by buy-probability using QuickSort or MergeSort
 
