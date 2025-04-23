@@ -87,22 +87,16 @@ int main(int argc, char* argv[]) {
             string token;
             stringstream ss(line);
             while (getline(ss, token, ',')) cols.push_back(token);
-            if (cols.size() > 7) {
+            if (cols.size() >= 7) {
                 try {
                     double price = stod(cols[6]);
                     prices.push_back(price);
                 } catch (...) {}
             }
         }
-
-        if (prices.size() < 2) {
-            cerr << "Warning: Not enough data in " << symbol << endl;
-            metrics.emplace_back(symbol, 0.0);
-            continue;
-        }
         int ups = 0;
         for (size_t j = 1; j < prices.size(); j++)
-            if (prices[j] < prices[j - 1]) ups++;
+            if (prices[j] > prices[j - 1]) ups++;
         double prob = prices.size() > 1 ? static_cast<double>(ups) / (prices.size() - 1) : 0.0;
         metrics.emplace_back(symbol, prob);
     }
